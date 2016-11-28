@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
   const day = today.getDate()
   const queryDate = req.query && req.query.date ? req.query.date : false
   const useQueryDate = queryDate && queryDate <= day
-  const date = useQueryDate ? date : day
+  const date = useQueryDate ? queryDate : day
   res.send(html.replace(/{date}/g, date))
 })
 
