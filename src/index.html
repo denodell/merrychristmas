@@ -18,40 +18,69 @@
         display: block;
         text-decoration: none;
       }
+
+      .image {
+
+      }
+
+      img {
+
+      }
+
+      .loaded .image {
+
+      }
+
+      .opened .image {
+
+      }
+
+      .date-{date} {
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <h1>Advent Calendar</h1>
+
     <ul>
-      <li><a href="#1">1</a></li>
-      <li><a href="#2">2</a></li>
-      <li><a href="#3">3</a></li>
-      <li><a href="#4">4</a></li>
-      <li><a href="#5">5</a></li>
-      <li><a href="#6">6</a></li>
-      <li><a href="#7">7</a></li>
-      <li><a href="#8">8</a></li>
-      <li><a href="#9">9</a></li>
-      <li><a href="#10">10</a></li>
-      <li><a href="#11">11</a></li>
-      <li><a href="#12">12</a></li>
-      <li><a href="#13">13</a></li>
-      <li><a href="#14">14</a></li>
-      <li><a href="#15">15</a></li>
-      <li><a href="#16">16</a></li>
-      <li><a href="#17">17</a></li>
-      <li><a href="#18">18</a></li>
-      <li><a href="#19">19</a></li>
-      <li><a href="#20">20</a></li>
-      <li><a href="#21">21</a></li>
-      <li><a href="#22">22</a></li>
-      <li><a href="#23">23</a></li>
-      <li><a href="#24">24</a></li>
+      <li><a href="?date=1" class="date-1">1</a></li>
+      <li><a href="?date=2" class="date-2">2</a></li>
+      <li><a href="?date=3" class="date-3">3</a></li>
+      <li><a href="?date=4" class="date-4">4</a></li>
+      <li><a href="?date=5" class="date-5">5</a></li>
+      <li><a href="?date=6" class="date-6">6</a></li>
+      <li><a href="?date=7" class="date-7">7</a></li>
+      <li><a href="?date=8" class="date-8">8</a></li>
+      <li><a href="?date=9" class="date-9">9</a></li>
+      <li><a href="?date=10" class="date-10">10</a></li>
+      <li><a href="?date=11" class="date-11">11</a></li>
+      <li><a href="?date=12" class="date-12">12</a></li>
+      <li><a href="?date=13" class="date-13">13</a></li>
+      <li><a href="?date=14" class="date-14">14</a></li>
+      <li><a href="?date=15" class="date-15">15</a></li>
+      <li><a href="?date=16" class="date-16">16</a></li>
+      <li><a href="?date=17" class="date-17">17</a></li>
+      <li><a href="?date=18" class="date-18">18</a></li>
+      <li><a href="?date=19" class="date-19">19</a></li>
+      <li><a href="?date=20" class="date-20">20</a></li>
+      <li><a href="?date=21" class="date-21">21</a></li>
+      <li><a href="?date=22" class="date-22">22</a></li>
+      <li><a href="?date=23" class="date-23">23</a></li>
+      <li><a href="?date=24" class="date-24">24</a></li>
     </ul>
 
-    <img src="" alt="" />
+    <button onClick="open()">Open door</button>
+
+    <div class="image">
+      <img src="images/{date}.jpg" alt="" />
+    </div>
 
     <script>
+    document.body.className += ' loaded'
+    function open(){
+      document.body.className += ' opened'
+    }
     </script>
   </body>
 </html>
