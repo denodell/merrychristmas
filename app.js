@@ -3,11 +3,13 @@ var compression = require('compression'),
     fs = require('fs'),
     express = require('express'),
     app = express()
-    port = process.env.PORT;
+    port = process.env.PORT,
+    html = fs.readFileSync(path.join(__dirname, '/src/index.html'), 'utf-8');
 
 app.use('/images', express.static(path.join(__dirname, 'src/images')));
 app.get('/', function (req, res) {
-  res.send(fs.readFileSync(path.join(__dirname, '/src/index.html'), 'utf-8'))
+  const date = 1
+  res.send(html.replace(/{date}/g, date))
 })
 
 app.use(compression());
