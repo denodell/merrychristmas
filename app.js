@@ -8,7 +8,11 @@ var compression = require('compression'),
 
 app.use('/images', express.static(path.join(__dirname, 'src/images')));
 app.get('/', function (req, res) {
-  const date = 1
+  const today = new Date()
+  const day = today.getDate()
+  const queryDate = req.query && req.query.date
+  const useQueryDate = queryDate && date <= day
+  const date = useQueryDate ? date : day
   res.send(html.replace(/{date}/g, date))
 })
 
