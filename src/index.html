@@ -19,12 +19,12 @@
         text-decoration: none;
       }
 
-      .image {
+      .nav {
 
       }
 
-      img {
-
+      .image {
+        background-size: contain;
       }
 
       .loaded .image {
@@ -43,7 +43,7 @@
   <body>
     <h1>Advent Calendar</h1>
 
-    <ul>
+    <ul class="nav">
       <li><a href="?date=1" class="date-1">1</a></li>
       <li><a href="?date=2" class="date-2">2</a></li>
       <li><a href="?date=3" class="date-3">3</a></li>
@@ -72,8 +72,7 @@
 
     <button onClick="open()">Open door</button>
 
-    <div class="image">
-      <img src="images/{date}.jpg" alt="" />
+    <div class="image" style="background-image:url(/images/{date}.jpg)">
     </div>
 
     <script>
