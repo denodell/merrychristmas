@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Advent Calendar</title>
     <style>
       * {
@@ -9,6 +10,18 @@
         margin: 0;
         font-family: Helvetica, Arial, sans-serif;
       }
+
+			.body {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: url(https://s-media-cache-ak0.pinimg.com/736x/09/df/35/09df35cbb75d769deffab989ec3492d7.jpg);
+				background-size: cover;
+				background-position: bottom;
+				background-repeat: no-repeat;
+			}
 
       h1 {
         position: absolute;
@@ -22,41 +35,47 @@
       ul {
         display: flex;
         flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
         list-style: none;
-        background: red;
+				margin: 0 auto;
+				max-width: 1000px;
       }
 
       li {
-        flex: 1;
         text-align: center;
-      }
+				min-width: 24px;
+			}
 
       a {
         display: block;
         text-decoration: none;
         font-size: 14px;
-        line-height: 60px;
-        color: white;
+        line-height: 45px;
+        color: #ccc;
       }
 
       .nav {
         position: absolute;
         top: 0;
-        height: 60px;
+        height: 90px;
         left: 0;
         right: 0;
+				background: linear-gradient(rgba(100, 0, 0, 1), rgba(150, 0, 0, 1));
+				border-top: 2px solid rgba(200, 0, 0, 1);
+				border-bottom: 2px solid rgba(230, 0, 0, 1);
       }
 
       .image {
         position: absolute;
-        top: 60px;
+        top: 94px;
         left: 0;
         right: 0;
-        bottom: 0;
-        background-color: black;
+        bottom: 34px;
+				background-color: rgba(255, 255, 255, .5);
         background-size: contain;
         background-repeat: no-repeat;
-        background-position: top center;
+        background-position: center;
       }
 
       .loaded .image {
@@ -69,49 +88,144 @@
 
       .date-{date} {
         font-weight: bold;
+				font-size: 30px;
+				color: white;
+				padding: 0 5px;
+				background: linear-gradient(rgba(200, 0, 0, 1), rgba(230, 0, 0, 1));
       }
+
+			.footer {
+				position: absolute;
+				bottom: 0;
+				height: 30px;
+				left: 0;
+				right: 0;
+				line-height: 30px;
+				text-align: center;
+				font-weight: bold;
+				font-size: 14px;
+				color: white;
+				background: linear-gradient(rgba(150, 0, 0, 1), rgba(100, 0, 0, 1));
+				border-bottom: 2px solid rgba(200, 0, 0, 1);
+				border-top: 2px solid rgba(230, 0, 0, 1);
+				text-transform: uppercase;
+				letter-spacing: 1px;
+			}
+
+			.play-button {
+				appearance: none;
+				background: rgba(200, 0, 0, 1);
+				padding: 4px 5px;
+				border: 0;
+				margin: 0 0 0 20px;
+				color: white;
+			}
+
+			@media screen and (min-width: 700px) {
+				li {
+					flex: 1;
+				}
+
+				a {
+					line-height: 60px;
+				}
+
+				.nav {
+					height: 60px;
+				}
+
+				.image {
+					top: 64px;
+				}
+
+				.play-button {
+					display: none;
+				}
+			}
     </style>
   </head>
   <body>
     <h1>Advent Calendar</h1>
 
-    <ul class="nav">
-      <li><a href="?date=1" class="date-1">1</a></li>
-      <li><a href="?date=2" class="date-2">2</a></li>
-      <li><a href="?date=3" class="date-3">3</a></li>
-      <li><a href="?date=4" class="date-4">4</a></li>
-      <li><a href="?date=5" class="date-5">5</a></li>
-      <li><a href="?date=6" class="date-6">6</a></li>
-      <li><a href="?date=7" class="date-7">7</a></li>
-      <li><a href="?date=8" class="date-8">8</a></li>
-      <li><a href="?date=9" class="date-9">9</a></li>
-      <li><a href="?date=10" class="date-10">10</a></li>
-      <li><a href="?date=11" class="date-11">11</a></li>
-      <li><a href="?date=12" class="date-12">12</a></li>
-      <li><a href="?date=13" class="date-13">13</a></li>
-      <li><a href="?date=14" class="date-14">14</a></li>
-      <li><a href="?date=15" class="date-15">15</a></li>
-      <li><a href="?date=16" class="date-16">16</a></li>
-      <li><a href="?date=17" class="date-17">17</a></li>
-      <li><a href="?date=18" class="date-18">18</a></li>
-      <li><a href="?date=19" class="date-19">19</a></li>
-      <li><a href="?date=20" class="date-20">20</a></li>
-      <li><a href="?date=21" class="date-21">21</a></li>
-      <li><a href="?date=22" class="date-22">22</a></li>
-      <li><a href="?date=23" class="date-23">23</a></li>
-      <li><a href="?date=24" class="date-24">24</a></li>
-    </ul>
+		<div class="body">
 
-    <button onClick="open()">Open door</button>
+			<nav class="nav">
+		    <ul>
+		      <li><a href="?date=1" class="date-1">1</a></li>
+		      <li><a href="?date=2" class="date-2">2</a></li>
+		      <li><a href="?date=3" class="date-3">3</a></li>
+		      <li><a href="?date=4" class="date-4">4</a></li>
+		      <li><a href="?date=5" class="date-5">5</a></li>
+		      <li><a href="?date=6" class="date-6">6</a></li>
+		      <li><a href="?date=7" class="date-7">7</a></li>
+		      <li><a href="?date=8" class="date-8">8</a></li>
+		      <li><a href="?date=9" class="date-9">9</a></li>
+		      <li><a href="?date=10" class="date-10">10</a></li>
+		      <li><a href="?date=11" class="date-11">11</a></li>
+		      <li><a href="?date=12" class="date-12">12</a></li>
+		      <li><a href="?date=13" class="date-13">13</a></li>
+		      <li><a href="?date=14" class="date-14">14</a></li>
+		      <li><a href="?date=15" class="date-15">15</a></li>
+		      <li><a href="?date=16" class="date-16">16</a></li>
+		      <li><a href="?date=17" class="date-17">17</a></li>
+		      <li><a href="?date=18" class="date-18">18</a></li>
+		      <li><a href="?date=19" class="date-19">19</a></li>
+		      <li><a href="?date=20" class="date-20">20</a></li>
+		      <li><a href="?date=21" class="date-21">21</a></li>
+		      <li><a href="?date=22" class="date-22">22</a></li>
+		      <li><a href="?date=23" class="date-23">23</a></li>
+		      <li><a href="?date=24" class="date-24">24</a></li>
+		    </ul>
+			</nav>
 
-    <div class="image" style="background-image:url(/images/{date}.jpg)">
-    </div>
+	    <div class="image" style="background-image:url(/images/{date}.jpg)">
+	    </div>
+
+			<div class="footer">Happy Advent, Mia!<button id="play" class="play-button" type="button" onClick="play()">Play Music</button></div>
+		</div>
+
+		<audio loop id="audio"></audio>
 
     <script>
     document.body.className += ' loaded'
-    function open(){
-      document.body.className += ' opened'
-    }
+
+		var songs = [
+			'',
+			'http://a1971.phobos.apple.com/us/r1000/112/Music/ec/ec/bc/mzm.jhispnsv.aac.p.m4a', // white christmas
+			'http://a776.phobos.apple.com/us/r1000/115/Music/01/8b/4a/mzm.ccokbdvf.aac.p.m4a', // rudolph the red nosed reindeer
+			'http://a204.phobos.apple.com/us/r1000/061/Music/7a/04/39/mzm.zdhknnof.aac.p.m4a', // have yourself a merry little christmas
+			'http://a925.phobos.apple.com/us/r1000/067/Music/4d/6d/8a/mzm.dclxvpng.aac.p.m4a', // we wish you a merry christmas
+			'http://a1953.phobos.apple.com/us/r1000/097/Music/40/c5/55/mzm.xcawshyw.aac.p.m4a', // little drummer boy
+			'http://a1329.phobos.apple.com/us/r1000/087/Music/07/df/45/mzm.yqkismba.aac.p.m4a', // sleigh ride
+			'http://a1267.phobos.apple.com/us/r1000/061/Music/57/b7/3d/mzm.vfiiiqty.aac.p.m4a', // it came upon a midnight clear
+			'http://a1416.phobos.apple.com/us/r1000/109/Music/df/cf/b8/mzm.licbcyog.aac.p.m4a', // winter wonderland
+			'http://a1354.phobos.apple.com/us/r1000/076/Music/a1/4e/a0/mzm.weoubhvl.aac.p.m4a', // merry christmas, baby
+			'http://a1595.phobos.apple.com/us/r1000/101/Music/21/04/60/mzm.wzkqxgjw.aac.p.m4a', // the twelve days of christmas
+			'http://a1781.phobos.apple.com/us/r1000/068/Music/6a/99/2d/mzm.ghchubau.aac.p.m4a', // blue christmas
+			'http://a899.phobos.apple.com/us/r1000/089/Music/51/4c/3c/mzm.qqwwvtdl.aac.p.m4a', // oh christmas tree
+			'http://audio.itunes.apple.com/apple-assets-us-std-000001/AudioPreview19/v4/0e/0e/49/0e0e491f-ca86-1786-cb90-8c829a03219f/mzaf_7312276025615024007.plus.aac.p.m4a', // Sankta Lucia
+			'http://a98.phobos.apple.com/us/r1000/077/Music/de/b5/ea/mzm.vviqdbro.aac.p.m4a', // silver bells
+			'http://a1487.phobos.apple.com/us/r1000/072/Music/4b/35/f6/mzm.helqocab.aac.p.m4a', // joy to the world
+			'http://a1754.phobos.apple.com/us/r1000/113/Music/ae/3e/7b/mzm.ycgftmmf.aac.p.m4a', // let it snow, let it snow, let it snow
+			'http://a1032.phobos.apple.com/us/r1000/086/Music/bf/a6/83/mzm.mhutzjxi.aac.p.m4a', // ave maria
+			'http://a1309.phobos.apple.com/us/r1000/082/Music/fb/d7/ef/mzm.mjjiiacc.aac.p.m4a', // oh holy night
+			'http://a1561.phobos.apple.com/us/r1000/111/Music/66/8d/b5/mzm.zlomtccz.aac.p.m4a', // i want a hippopotamus for christmas
+			'http://a1164.phobos.apple.com/us/r1000/071/Music/a2/ed/fa/mzm.yhawfrrw.aac.p.m4a', // god rest ye merry gentlemen
+			'http://a1180.phobos.apple.com/us/r1000/077/Music/a2/2b/ff/mzm.mjvqjduw.aac.p.m4a', // silent night
+			'http://a1368.phobos.apple.com/us/r1000/114/Music/c7/e7/ca/mzm.ffesodzr.aac.p.m4a', // the first noel
+			'http://a778.phobos.apple.com/us/r1000/078/Music/25/fc/34/mzm.vxdvaxmy.aac.p.m4a', // away in a manger
+			'http://a593.phobos.apple.com/us/r1000/076/Music/19/45/cc/mzm.pqvovkrs.aac.p.m4a' // hallelujah chorus
+		]
+		document.getElementById('audio').src = songs[{date}]
+		document.getElementById('audio').play()
+
+		function pause() {
+			document.getElementById('audio').pause()
+		}
+
+		function play() {
+			document.getElementById('audio').play()
+		}
     </script>
   </body>
 </html>

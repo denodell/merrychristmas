@@ -2,8 +2,9 @@ var compression = require('compression'),
     path = require('path'),
     fs = require('fs'),
     express = require('express'),
-    app = express()
-    port = process.env.PORT,
+    app = express(),
+		isProd = process.env.production && process.env.production === 'true',
+    port = isProd ? process.env.PORT : 5005,
     html = fs.readFileSync(path.join(__dirname, '/src/index.html'), 'utf-8');
 
 app.use('/images', express.static(path.join(__dirname, 'src/images')));
