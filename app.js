@@ -13,7 +13,8 @@ app.get('/', function (req, res) {
   const queryDate = req.query && req.query.date ? req.query.date : false
   const useQueryDate = queryDate && queryDate <= day
   const date = useQueryDate ? queryDate : day
-  res.send(html.replace(/{date}/g, date))
+	const dateToUse = date > 24 ? 24 : date
+  res.send(html.replace(/{date}/g, dateToUse))
 })
 
 app.use(compression());
