@@ -18,10 +18,7 @@
 				left: 0;
 				right: 0;
 				bottom: 0;
-				background-image: url(https://s-media-cache-ak0.pinimg.com/736x/09/df/35/09df35cbb75d769deffab989ec3492d7.jpg);
-				background-size: cover;
-				background-position: bottom;
-				background-repeat: no-repeat;
+				overflow: hidden;
 			}
 
       h1 {
@@ -45,7 +42,7 @@
 
       li {
         text-align: center;
-				min-width: 24px;
+				min-width: 23px;
 			}
 
       a {
@@ -67,13 +64,23 @@
 				border-bottom: 2px solid rgba(230, 0, 0, 1);
       }
 
+			canvas {
+				position: absolute;
+        top: 94px;
+        left: 0;
+        right: 0;
+        bottom: 34px;
+				background-image: linear-gradient(rgb(23,82,145), rgb(13,13,120));
+			}
+
       .image {
         position: absolute;
         top: 94px;
         left: 0;
         right: 0;
         bottom: 34px;
-				background-color: rgba(255, 255, 255, .5);
+				z-index: 1;
+				background-color: rgba(0, 0, 0, .5);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -93,6 +100,7 @@
 				color: white;
 				padding: 0 5px;
 				background: linear-gradient(rgba(200, 0, 0, 1), rgba(230, 0, 0, 1));
+				border-bottom: 2px solid white;
       }
 
 			.footer {
@@ -122,7 +130,7 @@
 				color: white;
 			}
 
-			@media screen and (min-width: 700px) {
+			@media screen and (min-width: 667px) {
 				li {
 					flex: 1;
 				}
@@ -135,6 +143,7 @@
 					height: 60px;
 				}
 
+				canvas,
 				.image {
 					top: 64px;
 				}
@@ -178,6 +187,8 @@
 		      <li><a href="?date=24" class="date-24">24</a></li>
 		    </ul>
 			</nav>
+
+			<canvas id="canvas"></canvas>
 
 	    <div class="image" style="background-image:url(/images/{date}.jpg)">
 	    </div>
@@ -227,6 +238,123 @@
 		function play() {
 			document.getElementById('audio').play()
 		}
+
+		(function() {
+		    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
+		    function(callback) {
+		        window.setTimeout(callback, 1000 / 60);
+		    };
+		    window.requestAnimationFrame = requestAnimationFrame;
+		})();
+
+
+		var flakes = [],
+		    canvas = document.getElementById("canvas"),
+		    ctx = canvas.getContext("2d"),
+		    flakeCount = 400,
+		    mX = -100,
+		    mY = -100
+
+		    canvas.width = window.innerWidth;
+		    canvas.height = window.innerHeight;
+
+		function snow() {
+		    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		    for (var i = 0; i < flakeCount; i++) {
+		        var flake = flakes[i],
+		            x = mX,
+		            y = mY,
+		            minDist = 150,
+		            x2 = flake.x,
+		            y2 = flake.y;
+
+		        var dist = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)),
+		            dx = x2 - x,
+		            dy = y2 - y;
+
+		        if (dist < minDist) {
+		            var force = minDist / (dist * dist),
+		                xcomp = (x - x2) / dist,
+		                ycomp = (y - y2) / dist,
+		                deltaV = force / 2;
+
+		            flake.velX -= deltaV * xcomp;
+		            flake.velY -= deltaV * ycomp;
+
+		        } else {
+		            flake.velX *= .98;
+		            if (flake.velY <= flake.speed) {
+		                flake.velY = flake.speed
+		            }
+		            flake.velX += Math.cos(flake.step += .05) * flake.stepSize;
+		        }
+
+		        ctx.fillStyle = "rgba(255,255,255," + flake.opacity + ")";
+		        flake.y += flake.velY;
+		        flake.x += flake.velX;
+
+		        if (flake.y >= canvas.height || flake.y <= 0) {
+		            reset(flake);
+		        }
+
+
+		        if (flake.x >= canvas.width || flake.x <= 0) {
+		            reset(flake);
+		        }
+
+		        ctx.beginPath();
+		        ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
+		        ctx.fill();
+		    }
+		    requestAnimationFrame(snow);
+		};
+
+		function reset(flake) {
+		    flake.x = Math.floor(Math.random() * canvas.width);
+		    flake.y = 0;
+		    flake.size = (Math.random() * 3) + 2;
+		    flake.speed = (Math.random() * 1) + 0.5;
+		    flake.velY = flake.speed;
+		    flake.velX = 0;
+		    flake.opacity = (Math.random() * 0.5) + 0.3;
+		}
+
+		function init() {
+		    for (var i = 0; i < flakeCount; i++) {
+		        var x = Math.floor(Math.random() * canvas.width),
+		            y = Math.floor(Math.random() * canvas.height),
+		            size = (Math.random() * 3) + 2,
+		            speed = (Math.random() * 1) + 0.5,
+		            opacity = (Math.random() * 0.5) + 0.3;
+
+		        flakes.push({
+		            speed: speed,
+		            velY: speed,
+		            velX: 0,
+		            x: x,
+		            y: y,
+		            size: size,
+		            stepSize: (Math.random()) / 30,
+		            step: 0,
+		            opacity: opacity
+		        });
+		    }
+
+		    snow();
+		};
+
+		canvas.addEventListener("mousemove", function(e) {
+		    mX = e.clientX,
+		    mY = e.clientY
+		});
+
+		window.addEventListener("resize",function(){
+		    canvas.width = window.innerWidth;
+		    canvas.height = window.innerHeight;
+		})
+
+		init();
 
     </script>
   </body>
